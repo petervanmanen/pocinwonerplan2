@@ -46,6 +46,17 @@ public class CacheConfiguration {
             createCache(cm, nl.commutr.demo.domain.User.class.getName());
             createCache(cm, nl.commutr.demo.domain.Authority.class.getName());
             createCache(cm, nl.commutr.demo.domain.User.class.getName() + ".authorities");
+            createCache(cm, nl.commutr.demo.domain.Subdoel.class.getName());
+            createCache(cm, nl.commutr.demo.domain.Subdoel.class.getName() + ".aanbods");
+            createCache(cm, nl.commutr.demo.domain.Aanbod.class.getName());
+            createCache(cm, nl.commutr.demo.domain.Aanbod.class.getName() + ".subdoels");
+            createCache(cm, nl.commutr.demo.domain.Aanbod.class.getName() + ".activiteits");
+            createCache(cm, nl.commutr.demo.domain.Aandachtspunt.class.getName());
+            createCache(cm, nl.commutr.demo.domain.Aandachtspunt.class.getName() + ".subdoels");
+            createCache(cm, nl.commutr.demo.domain.Activiteit.class.getName());
+            createCache(cm, nl.commutr.demo.domain.Activiteit.class.getName() + ".aanbods");
+            createCache(cm, nl.commutr.demo.domain.Ontwikkelwens.class.getName());
+            createCache(cm, nl.commutr.demo.domain.Ontwikkelwens.class.getName() + ".subdoels");
             // jhipster-needle-caffeine-add-entry
         };
     }

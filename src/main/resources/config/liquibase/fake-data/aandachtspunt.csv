@@ -1,0 +1,12 @@
+id;code;naam;omschrijving;actief
+1;1;Lichamelijke gezondheid;;true
+2;2;Psychische gezondheid;;true
+3;3;Verslaving;;true
+4;4;Justitie;;true
+5;5;Financiën;;true
+6;6;Woonsitiuatie;;true
+7;7;Taal;;true
+8;8;Digitale vaardigheden;;true
+9;9;Zorgtaken;;true
+10;10;Eenzaamheid;;true
+11;11;Uitkering door voorliggende voorziening;;true
