@@ -8,10 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ISubdoel } from 'app/shared/model/subdoel.model';
-import { getEntities as getSubdoels } from 'app/entities/subdoel/subdoel.reducer';
 import { IActiviteit } from 'app/shared/model/activiteit.model';
 import { getEntities as getActiviteits } from 'app/entities/activiteit/activiteit.reducer';
+import { IAandachtspunt } from 'app/shared/model/aandachtspunt.model';
+import { getEntities as getAandachtspunts } from 'app/entities/aandachtspunt/aandachtspunt.reducer';
+import { IOntwikkelwens } from 'app/shared/model/ontwikkelwens.model';
+import { getEntities as getOntwikkelwens } from 'app/entities/ontwikkelwens/ontwikkelwens.reducer';
 import { IAanbod } from 'app/shared/model/aanbod.model';
 import { getEntity, updateEntity, createEntity, reset } from './aanbod.reducer';
 
@@ -23,8 +25,9 @@ export const AanbodUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const subdoels = useAppSelector(state => state.subdoel.entities);
   const activiteits = useAppSelector(state => state.activiteit.entities);
+  const aandachtspunts = useAppSelector(state => state.aandachtspunt.entities);
+  const ontwikkelwens = useAppSelector(state => state.ontwikkelwens.entities);
   const aanbodEntity = useAppSelector(state => state.aanbod.entity);
   const loading = useAppSelector(state => state.aanbod.loading);
   const updating = useAppSelector(state => state.aanbod.updating);
@@ -41,8 +44,9 @@ export const AanbodUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getSubdoels({}));
     dispatch(getActiviteits({}));
+    dispatch(getAandachtspunts({}));
+    dispatch(getOntwikkelwens({}));
   }, []);
 
   useEffect(() => {
@@ -60,8 +64,9 @@ export const AanbodUpdate = () => {
     const entity = {
       ...aanbodEntity,
       ...values,
-      subdoels: mapIdList(values.subdoels),
       activiteits: mapIdList(values.activiteits),
+      aandachtspunts: mapIdList(values.aandachtspunts),
+      ontwikkelwens: mapIdList(values.ontwikkelwens),
     };
 
     if (isNew) {
@@ -76,8 +81,9 @@ export const AanbodUpdate = () => {
       ? {}
       : {
           ...aanbodEntity,
-          subdoels: aanbodEntity?.subdoels?.map(e => e.id.toString()),
           activiteits: aanbodEntity?.activiteits?.map(e => e.id.toString()),
+          aandachtspunts: aanbodEntity?.aandachtspunts?.map(e => e.id.toString()),
+          ontwikkelwens: aanbodEntity?.ontwikkelwens?.map(e => e.id.toString()),
         };
 
   return (
@@ -97,23 +103,46 @@ export const AanbodUpdate = () => {
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="aanbod-id" label="ID" validate={{ required: true }} /> : null}
               <ValidatedField label="Naam" id="aanbod-naam" name="naam" data-cy="naam" type="text" />
-              <ValidatedField label="Subdoelen" id="aanbod-subdoelen" name="subdoelen" data-cy="subdoelen" type="text" />
-              <ValidatedField label="Subdoel" id="aanbod-subdoel" data-cy="subdoel" type="select" multiple name="subdoels">
-                <option value="" key="0" />
-                {subdoels
-                  ? subdoels.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <ValidatedField label="Activiteit" id="aanbod-activiteit" data-cy="activiteit" type="select" multiple name="activiteits">
                 <option value="" key="0" />
                 {activiteits
                   ? activiteits.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.id} {otherEntity.naam}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                label="Aandachtspunt"
+                id="aanbod-aandachtspunt"
+                data-cy="aandachtspunt"
+                type="select"
+                multiple
+                name="aandachtspunts"
+              >
+                <option value="" key="0" />
+                {aandachtspunts
+                  ? aandachtspunts.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id} {otherEntity.naam}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                label="Ontwikkelwens"
+                id="aanbod-ontwikkelwens"
+                data-cy="ontwikkelwens"
+                type="select"
+                multiple
+                name="ontwikkelwens"
+              >
+                <option value="" key="0" />
+                {ontwikkelwens
+                  ? ontwikkelwens.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id} {otherEntity.naam}
                       </option>
                     ))
                   : null}

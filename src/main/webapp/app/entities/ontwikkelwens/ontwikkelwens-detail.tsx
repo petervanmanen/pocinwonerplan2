@@ -43,6 +43,17 @@ export const OntwikkelwensDetail = () => {
             <span id="actief">Actief</span>
           </dt>
           <dd>{ontwikkelwensEntity.actief ? 'true' : 'false'}</dd>
+          <dt>Aanbod</dt>
+          <dd>
+            {ontwikkelwensEntity.aanbods
+              ? ontwikkelwensEntity.aanbods.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {ontwikkelwensEntity.aanbods && i === ontwikkelwensEntity.aanbods.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/ontwikkelwens" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

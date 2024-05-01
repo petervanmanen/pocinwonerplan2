@@ -66,7 +66,7 @@ export const Subdoel = () => {
   return (
     <div>
       <h2 id="subdoel-heading" data-cy="SubdoelHeading">
-        Subdoels
+        Subdoelen
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
@@ -100,9 +100,6 @@ export const Subdoel = () => {
                 <th>
                   Ontwikkelwens <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  Aanbod <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -122,16 +119,6 @@ export const Subdoel = () => {
                   </td>
                   <td>
                     {subdoel.ontwikkelwens ? <Link to={`/ontwikkelwens/${subdoel.ontwikkelwens.id}`}>{subdoel.ontwikkelwens.id}</Link> : ''}
-                  </td>
-                  <td>
-                    {subdoel.aanbods
-                      ? subdoel.aanbods.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/aanbod/${val.id}`}>{val.id}</Link>
-                            {j === subdoel.aanbods.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IAanbod } from 'app/shared/model/aanbod.model';
+import { getEntities as getAanbods } from 'app/entities/aanbod/aanbod.reducer';
 import { IAandachtspunt } from 'app/shared/model/aandachtspunt.model';
 import { getEntity, updateEntity, createEntity, reset } from './aandachtspunt.reducer';
 
@@ -19,6 +21,7 @@ export const AandachtspuntUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const aanbods = useAppSelector(state => state.aanbod.entities);
   const aandachtspuntEntity = useAppSelector(state => state.aandachtspunt.entity);
   const loading = useAppSelector(state => state.aandachtspunt.loading);
   const updating = useAppSelector(state => state.aandachtspunt.updating);
@@ -34,6 +37,8 @@ export const AandachtspuntUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getAanbods({}));
   }, []);
 
   useEffect(() => {
@@ -54,6 +59,7 @@ export const AandachtspuntUpdate = () => {
     const entity = {
       ...aandachtspuntEntity,
       ...values,
+      aanbods: mapIdList(values.aanbods),
     };
 
     if (isNew) {
@@ -68,6 +74,7 @@ export const AandachtspuntUpdate = () => {
       ? {}
       : {
           ...aandachtspuntEntity,
+          aanbods: aandachtspuntEntity?.aanbods?.map(e => e.id.toString()),
         };
 
   return (
@@ -92,6 +99,16 @@ export const AandachtspuntUpdate = () => {
               <ValidatedField label="Naam" id="aandachtspunt-naam" name="naam" data-cy="naam" type="text" />
               <ValidatedField label="Omschrijving" id="aandachtspunt-omschrijving" name="omschrijving" data-cy="omschrijving" type="text" />
               <ValidatedField label="Actief" id="aandachtspunt-actief" name="actief" data-cy="actief" check type="checkbox" />
+              <ValidatedField label="Aanbod" id="aandachtspunt-aanbod" data-cy="aanbod" type="select" multiple name="aanbods">
+                <option value="" key="0" />
+                {aanbods
+                  ? aanbods.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/aandachtspunt" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

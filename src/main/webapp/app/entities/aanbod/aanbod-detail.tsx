@@ -31,21 +31,6 @@ export const AanbodDetail = () => {
             <span id="naam">Naam</span>
           </dt>
           <dd>{aanbodEntity.naam}</dd>
-          <dt>
-            <span id="subdoelen">Subdoelen</span>
-          </dt>
-          <dd>{aanbodEntity.subdoelen}</dd>
-          <dt>Subdoel</dt>
-          <dd>
-            {aanbodEntity.subdoels
-              ? aanbodEntity.subdoels.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.id}</a>
-                    {aanbodEntity.subdoels && i === aanbodEntity.subdoels.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
           <dt>Activiteit</dt>
           <dd>
             {aanbodEntity.activiteits
@@ -53,6 +38,28 @@ export const AanbodDetail = () => {
                   <span key={val.id}>
                     <a>{val.id}</a>
                     {aanbodEntity.activiteits && i === aanbodEntity.activiteits.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
+          <dt>Aandachtspunt</dt>
+          <dd>
+            {aanbodEntity.aandachtspunts
+              ? aanbodEntity.aandachtspunts.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {aanbodEntity.aandachtspunts && i === aanbodEntity.aandachtspunts.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
+          <dt>Ontwikkelwens</dt>
+          <dd>
+            {aanbodEntity.ontwikkelwens
+              ? aanbodEntity.ontwikkelwens.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {aanbodEntity.ontwikkelwens && i === aanbodEntity.ontwikkelwens.length - 1 ? '' : ', '}
                   </span>
                 ))
               : null}

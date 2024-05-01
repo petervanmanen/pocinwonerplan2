@@ -43,17 +43,6 @@ export const SubdoelDetail = () => {
           <dd>{subdoelEntity.aandachtspunt ? subdoelEntity.aandachtspunt.id : ''}</dd>
           <dt>Ontwikkelwens</dt>
           <dd>{subdoelEntity.ontwikkelwens ? subdoelEntity.ontwikkelwens.id : ''}</dd>
-          <dt>Aanbod</dt>
-          <dd>
-            {subdoelEntity.aanbods
-              ? subdoelEntity.aanbods.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.id}</a>
-                    {subdoelEntity.aanbods && i === subdoelEntity.aanbods.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
         </dl>
         <Button tag={Link} to="/subdoel" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

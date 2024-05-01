@@ -147,12 +147,19 @@ public class OntwikkelwensResource {
     /**
      * {@code GET  /ontwikkelwens} : get all the ontwikkelwens.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ontwikkelwens in body.
      */
     @GetMapping("")
-    public List<Ontwikkelwens> getAllOntwikkelwens() {
+    public List<Ontwikkelwens> getAllOntwikkelwens(
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all Ontwikkelwens");
-        return ontwikkelwensRepository.findAll();
+        if (eagerload) {
+            return ontwikkelwensRepository.findAllWithEagerRelationships();
+        } else {
+            return ontwikkelwensRepository.findAll();
+        }
     }
 
     /**
@@ -164,7 +171,7 @@ public class OntwikkelwensResource {
     @GetMapping("/{id}")
     public ResponseEntity<Ontwikkelwens> getOntwikkelwens(@PathVariable("id") Long id) {
         log.debug("REST request to get Ontwikkelwens : {}", id);
-        Optional<Ontwikkelwens> ontwikkelwens = ontwikkelwensRepository.findById(id);
+        Optional<Ontwikkelwens> ontwikkelwens = ontwikkelwensRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(ontwikkelwens);
     }
 

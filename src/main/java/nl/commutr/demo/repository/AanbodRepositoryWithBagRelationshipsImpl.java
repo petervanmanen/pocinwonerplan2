@@ -24,7 +24,7 @@ public class AanbodRepositoryWithBagRelationshipsImpl implements AanbodRepositor
 
     @Override
     public Optional<Aanbod> fetchBagRelationships(Optional<Aanbod> aanbod) {
-        return aanbod.map(this::fetchSubdoels);
+        return aanbod.map(this::fetchActiviteits);
     }
 
     @Override
@@ -34,21 +34,21 @@ public class AanbodRepositoryWithBagRelationshipsImpl implements AanbodRepositor
 
     @Override
     public List<Aanbod> fetchBagRelationships(List<Aanbod> aanbods) {
-        return Optional.of(aanbods).map(this::fetchSubdoels).orElse(Collections.emptyList());
+        return Optional.of(aanbods).map(this::fetchActiviteits).orElse(Collections.emptyList());
     }
 
-    Aanbod fetchSubdoels(Aanbod result) {
+    Aanbod fetchActiviteits(Aanbod result) {
         return entityManager
-            .createQuery("select aanbod from Aanbod aanbod left join fetch aanbod.subdoels where aanbod.id = :id", Aanbod.class)
+            .createQuery("select aanbod from Aanbod aanbod left join fetch aanbod.activiteits where aanbod.id = :id", Aanbod.class)
             .setParameter(ID_PARAMETER, result.getId())
             .getSingleResult();
     }
 
-    List<Aanbod> fetchSubdoels(List<Aanbod> aanbods) {
+    List<Aanbod> fetchActiviteits(List<Aanbod> aanbods) {
         HashMap<Object, Integer> order = new HashMap<>();
         IntStream.range(0, aanbods.size()).forEach(index -> order.put(aanbods.get(index).getId(), index));
         List<Aanbod> result = entityManager
-            .createQuery("select aanbod from Aanbod aanbod left join fetch aanbod.subdoels where aanbod in :aanbods", Aanbod.class)
+            .createQuery("select aanbod from Aanbod aanbod left join fetch aanbod.activiteits where aanbod in :aanbods", Aanbod.class)
             .setParameter(AANBODS_PARAMETER, aanbods)
             .getResultList();
         Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));

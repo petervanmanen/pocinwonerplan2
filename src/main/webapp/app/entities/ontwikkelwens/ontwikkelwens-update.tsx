@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IAanbod } from 'app/shared/model/aanbod.model';
+import { getEntities as getAanbods } from 'app/entities/aanbod/aanbod.reducer';
 import { IOntwikkelwens } from 'app/shared/model/ontwikkelwens.model';
 import { getEntity, updateEntity, createEntity, reset } from './ontwikkelwens.reducer';
 
@@ -19,6 +21,7 @@ export const OntwikkelwensUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const aanbods = useAppSelector(state => state.aanbod.entities);
   const ontwikkelwensEntity = useAppSelector(state => state.ontwikkelwens.entity);
   const loading = useAppSelector(state => state.ontwikkelwens.loading);
   const updating = useAppSelector(state => state.ontwikkelwens.updating);
@@ -34,6 +37,8 @@ export const OntwikkelwensUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getAanbods({}));
   }, []);
 
   useEffect(() => {
@@ -54,6 +59,7 @@ export const OntwikkelwensUpdate = () => {
     const entity = {
       ...ontwikkelwensEntity,
       ...values,
+      aanbods: mapIdList(values.aanbods),
     };
 
     if (isNew) {
@@ -68,6 +74,7 @@ export const OntwikkelwensUpdate = () => {
       ? {}
       : {
           ...ontwikkelwensEntity,
+          aanbods: ontwikkelwensEntity?.aanbods?.map(e => e.id.toString()),
         };
 
   return (
@@ -92,6 +99,16 @@ export const OntwikkelwensUpdate = () => {
               <ValidatedField label="Naam" id="ontwikkelwens-naam" name="naam" data-cy="naam" type="text" />
               <ValidatedField label="Omschrijving" id="ontwikkelwens-omschrijving" name="omschrijving" data-cy="omschrijving" type="text" />
               <ValidatedField label="Actief" id="ontwikkelwens-actief" name="actief" data-cy="actief" check type="checkbox" />
+              <ValidatedField label="Aanbod" id="ontwikkelwens-aanbod" data-cy="aanbod" type="select" multiple name="aanbods">
+                <option value="" key="0" />
+                {aanbods
+                  ? aanbods.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/ontwikkelwens" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

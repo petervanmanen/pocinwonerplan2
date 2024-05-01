@@ -3,8 +3,6 @@ package nl.commutr.demo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,17 +33,12 @@ public class Subdoel implements Serializable {
     private Boolean actief;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "subdoels" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "subdoels", "aanbods" }, allowSetters = true)
     private Aandachtspunt aandachtspunt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "subdoels" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "subdoels", "aanbods" }, allowSetters = true)
     private Ontwikkelwens ontwikkelwens;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subdoels")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "subdoels", "activiteits" }, allowSetters = true)
-    private Set<Aanbod> aanbods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -124,37 +117,6 @@ public class Subdoel implements Serializable {
 
     public Subdoel ontwikkelwens(Ontwikkelwens ontwikkelwens) {
         this.setOntwikkelwens(ontwikkelwens);
-        return this;
-    }
-
-    public Set<Aanbod> getAanbods() {
-        return this.aanbods;
-    }
-
-    public void setAanbods(Set<Aanbod> aanbods) {
-        if (this.aanbods != null) {
-            this.aanbods.forEach(i -> i.removeSubdoel(this));
-        }
-        if (aanbods != null) {
-            aanbods.forEach(i -> i.addSubdoel(this));
-        }
-        this.aanbods = aanbods;
-    }
-
-    public Subdoel aanbods(Set<Aanbod> aanbods) {
-        this.setAanbods(aanbods);
-        return this;
-    }
-
-    public Subdoel addAanbod(Aanbod aanbod) {
-        this.aanbods.add(aanbod);
-        aanbod.getSubdoels().add(this);
-        return this;
-    }
-
-    public Subdoel removeAanbod(Aanbod aanbod) {
-        this.aanbods.remove(aanbod);
-        aanbod.getSubdoels().remove(this);
         return this;
     }
 

@@ -150,19 +150,12 @@ public class ActiviteitResource {
     /**
      * {@code GET  /activiteits} : get all the activiteits.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of activiteits in body.
      */
     @GetMapping("")
-    public List<Activiteit> getAllActiviteits(
-        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    public List<Activiteit> getAllActiviteits() {
         log.debug("REST request to get all Activiteits");
-        if (eagerload) {
-            return activiteitRepository.findAllWithEagerRelationships();
-        } else {
-            return activiteitRepository.findAll();
-        }
+        return activiteitRepository.findAll();
     }
 
     /**
@@ -174,7 +167,7 @@ public class ActiviteitResource {
     @GetMapping("/{id}")
     public ResponseEntity<Activiteit> getActiviteit(@PathVariable("id") Long id) {
         log.debug("REST request to get Activiteit : {}", id);
-        Optional<Activiteit> activiteit = activiteitRepository.findOneWithEagerRelationships(id);
+        Optional<Activiteit> activiteit = activiteitRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(activiteit);
     }
 

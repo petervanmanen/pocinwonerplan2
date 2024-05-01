@@ -43,6 +43,17 @@ export const AandachtspuntDetail = () => {
             <span id="actief">Actief</span>
           </dt>
           <dd>{aandachtspuntEntity.actief ? 'true' : 'false'}</dd>
+          <dt>Aanbod</dt>
+          <dd>
+            {aandachtspuntEntity.aanbods
+              ? aandachtspuntEntity.aanbods.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {aandachtspuntEntity.aanbods && i === aandachtspuntEntity.aanbods.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/aandachtspunt" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

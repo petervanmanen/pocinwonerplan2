@@ -12,8 +12,6 @@ import { IAandachtspunt } from 'app/shared/model/aandachtspunt.model';
 import { getEntities as getAandachtspunts } from 'app/entities/aandachtspunt/aandachtspunt.reducer';
 import { IOntwikkelwens } from 'app/shared/model/ontwikkelwens.model';
 import { getEntities as getOntwikkelwens } from 'app/entities/ontwikkelwens/ontwikkelwens.reducer';
-import { IAanbod } from 'app/shared/model/aanbod.model';
-import { getEntities as getAanbods } from 'app/entities/aanbod/aanbod.reducer';
 import { ISubdoel } from 'app/shared/model/subdoel.model';
 import { getEntity, updateEntity, createEntity, reset } from './subdoel.reducer';
 
@@ -27,7 +25,6 @@ export const SubdoelUpdate = () => {
 
   const aandachtspunts = useAppSelector(state => state.aandachtspunt.entities);
   const ontwikkelwens = useAppSelector(state => state.ontwikkelwens.entities);
-  const aanbods = useAppSelector(state => state.aanbod.entities);
   const subdoelEntity = useAppSelector(state => state.subdoel.entity);
   const loading = useAppSelector(state => state.subdoel.loading);
   const updating = useAppSelector(state => state.subdoel.updating);
@@ -46,7 +43,6 @@ export const SubdoelUpdate = () => {
 
     dispatch(getAandachtspunts({}));
     dispatch(getOntwikkelwens({}));
-    dispatch(getAanbods({}));
   }, []);
 
   useEffect(() => {
@@ -69,7 +65,6 @@ export const SubdoelUpdate = () => {
       ...values,
       aandachtspunt: aandachtspunts.find(it => it.id.toString() === values.aandachtspunt?.toString()),
       ontwikkelwens: ontwikkelwens.find(it => it.id.toString() === values.ontwikkelwens?.toString()),
-      aanbods: mapIdList(values.aanbods),
     };
 
     if (isNew) {
@@ -86,7 +81,6 @@ export const SubdoelUpdate = () => {
           ...subdoelEntity,
           aandachtspunt: subdoelEntity?.aandachtspunt?.id,
           ontwikkelwens: subdoelEntity?.ontwikkelwens?.id,
-          aanbods: subdoelEntity?.aanbods?.map(e => e.id.toString()),
         };
 
   return (
@@ -122,16 +116,6 @@ export const SubdoelUpdate = () => {
                 <option value="" key="0" />
                 {ontwikkelwens
                   ? ontwikkelwens.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField label="Aanbod" id="subdoel-aanbod" data-cy="aanbod" type="select" multiple name="aanbods">
-                <option value="" key="0" />
-                {aanbods
-                  ? aanbods.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

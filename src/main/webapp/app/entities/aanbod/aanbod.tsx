@@ -66,7 +66,7 @@ export const Aanbod = () => {
   return (
     <div>
       <h2 id="aanbod-heading" data-cy="AanbodHeading">
-        Aanbods
+        Aanboden
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
@@ -88,14 +88,14 @@ export const Aanbod = () => {
                 <th className="hand" onClick={sort('naam')}>
                   Naam <FontAwesomeIcon icon={getSortIconByFieldName('naam')} />
                 </th>
-                <th className="hand" onClick={sort('subdoelen')}>
-                  Subdoelen <FontAwesomeIcon icon={getSortIconByFieldName('subdoelen')} />
-                </th>
-                <th>
-                  Subdoel <FontAwesomeIcon icon="sort" />
-                </th>
                 <th>
                   Activiteit <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Aandachtspunt <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Ontwikkelwens <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -109,23 +109,32 @@ export const Aanbod = () => {
                     </Button>
                   </td>
                   <td>{aanbod.naam}</td>
-                  <td>{aanbod.subdoelen}</td>
-                  <td>
-                    {aanbod.subdoels
-                      ? aanbod.subdoels.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/subdoel/${val.id}`}>{val.id}</Link>
-                            {j === aanbod.subdoels.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
-                  </td>
                   <td>
                     {aanbod.activiteits
                       ? aanbod.activiteits.map((val, j) => (
                           <span key={j}>
                             <Link to={`/activiteit/${val.id}`}>{val.id}</Link>
                             {j === aanbod.activiteits.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
+                  <td>
+                    {aanbod.aandachtspunts
+                      ? aanbod.aandachtspunts.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`/aandachtspunt/${val.id}`}>{val.id}</Link>
+                            {j === aanbod.aandachtspunts.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
+                  <td>
+                    {aanbod.ontwikkelwens
+                      ? aanbod.ontwikkelwens.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`/ontwikkelwens/${val.id}`}>{val.id}</Link>
+                            {j === aanbod.ontwikkelwens.length - 1 ? '' : ', '}
                           </span>
                         ))
                       : null}

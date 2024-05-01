@@ -147,12 +147,19 @@ public class AandachtspuntResource {
     /**
      * {@code GET  /aandachtspunts} : get all the aandachtspunts.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of aandachtspunts in body.
      */
     @GetMapping("")
-    public List<Aandachtspunt> getAllAandachtspunts() {
+    public List<Aandachtspunt> getAllAandachtspunts(
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all Aandachtspunts");
-        return aandachtspuntRepository.findAll();
+        if (eagerload) {
+            return aandachtspuntRepository.findAllWithEagerRelationships();
+        } else {
+            return aandachtspuntRepository.findAll();
+        }
     }
 
     /**
@@ -164,7 +171,7 @@ public class AandachtspuntResource {
     @GetMapping("/{id}")
     public ResponseEntity<Aandachtspunt> getAandachtspunt(@PathVariable("id") Long id) {
         log.debug("REST request to get Aandachtspunt : {}", id);
-        Optional<Aandachtspunt> aandachtspunt = aandachtspuntRepository.findById(id);
+        Optional<Aandachtspunt> aandachtspunt = aandachtspuntRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(aandachtspunt);
     }
 

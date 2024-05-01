@@ -39,8 +39,18 @@ public class Ontwikkelwens implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ontwikkelwens")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "aandachtspunt", "ontwikkelwens", "aanbods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "aandachtspunt", "ontwikkelwens" }, allowSetters = true)
     private Set<Subdoel> subdoels = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_ontwikkelwens__aanbod",
+        joinColumns = @JoinColumn(name = "ontwikkelwens_id"),
+        inverseJoinColumns = @JoinColumn(name = "aanbod_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "activiteits", "aandachtspunts", "ontwikkelwens" }, allowSetters = true)
+    private Set<Aanbod> aanbods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -137,6 +147,29 @@ public class Ontwikkelwens implements Serializable {
     public Ontwikkelwens removeSubdoel(Subdoel subdoel) {
         this.subdoels.remove(subdoel);
         subdoel.setOntwikkelwens(null);
+        return this;
+    }
+
+    public Set<Aanbod> getAanbods() {
+        return this.aanbods;
+    }
+
+    public void setAanbods(Set<Aanbod> aanbods) {
+        this.aanbods = aanbods;
+    }
+
+    public Ontwikkelwens aanbods(Set<Aanbod> aanbods) {
+        this.setAanbods(aanbods);
+        return this;
+    }
+
+    public Ontwikkelwens addAanbod(Aanbod aanbod) {
+        this.aanbods.add(aanbod);
+        return this;
+    }
+
+    public Ontwikkelwens removeAanbod(Aanbod aanbod) {
+        this.aanbods.remove(aanbod);
         return this;
     }
 

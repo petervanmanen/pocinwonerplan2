@@ -66,7 +66,7 @@ export const Ontwikkelwens = () => {
   return (
     <div>
       <h2 id="ontwikkelwens-heading" data-cy="OntwikkelwensHeading">
-        Ontwikkelwens
+        Ontwikkelwensen
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
@@ -97,6 +97,9 @@ export const Ontwikkelwens = () => {
                 <th className="hand" onClick={sort('actief')}>
                   Actief <FontAwesomeIcon icon={getSortIconByFieldName('actief')} />
                 </th>
+                <th>
+                  Aanbod <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -112,6 +115,16 @@ export const Ontwikkelwens = () => {
                   <td>{ontwikkelwens.naam}</td>
                   <td>{ontwikkelwens.omschrijving}</td>
                   <td>{ontwikkelwens.actief ? 'true' : 'false'}</td>
+                  <td>
+                    {ontwikkelwens.aanbods
+                      ? ontwikkelwens.aanbods.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`/aanbod/${val.id}`}>{val.id}</Link>
+                            {j === ontwikkelwens.aanbods.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/ontwikkelwens/${ontwikkelwens.id}`} color="info" size="sm" data-cy="entityDetailsButton">

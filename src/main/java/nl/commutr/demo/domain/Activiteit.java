@@ -40,14 +40,9 @@ public class Activiteit implements Serializable {
     @Column(name = "actief")
     private Boolean actief;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "rel_activiteit__aanbod",
-        joinColumns = @JoinColumn(name = "activiteit_id"),
-        inverseJoinColumns = @JoinColumn(name = "aanbod_id")
-    )
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "activiteits")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "subdoels", "activiteits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "activiteits", "aandachtspunts", "ontwikkelwens" }, allowSetters = true)
     private Set<Aanbod> aanbods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -135,6 +130,12 @@ public class Activiteit implements Serializable {
     }
 
     public void setAanbods(Set<Aanbod> aanbods) {
+        if (this.aanbods != null) {
+            this.aanbods.forEach(i -> i.removeActiviteit(this));
+        }
+        if (aanbods != null) {
+            aanbods.forEach(i -> i.addActiviteit(this));
+        }
         this.aanbods = aanbods;
     }
 
@@ -145,11 +146,13 @@ public class Activiteit implements Serializable {
 
     public Activiteit addAanbod(Aanbod aanbod) {
         this.aanbods.add(aanbod);
+        aanbod.getActiviteits().add(this);
         return this;
     }
 
     public Activiteit removeAanbod(Aanbod aanbod) {
         this.aanbods.remove(aanbod);
+        aanbod.getActiviteits().remove(this);
         return this;
     }
 

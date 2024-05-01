@@ -122,9 +122,6 @@ public class AanbodResource {
                 if (aanbod.getNaam() != null) {
                     existingAanbod.setNaam(aanbod.getNaam());
                 }
-                if (aanbod.getSubdoelen() != null) {
-                    existingAanbod.setSubdoelen(aanbod.getSubdoelen());
-                }
 
                 return existingAanbod;
             })

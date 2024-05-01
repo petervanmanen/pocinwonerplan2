@@ -1,11 +1,48 @@
 id;code;naam;actief
-1;2256;phooey whoa qua;true
-2;14210;wait phooey;false
-3;10051;resort geez curve;false
-4;24343;yuck unto negative;false
-5;30104;infantile warmly;true
-6;31499;across;true
-7;22429;notoriety tousle yum;false
-8;21405;actually;true
-9;2626;aw ouch uh-huh;true
-10;12390;instead agenda paddock;true
+1;1;Ik heb ervoor gezorgd dat mijn woonsituatie is verbeterd;true
+2;2;Ik heb hulp gevraagd om mijn woonsituatie te verbeteren;true
+3;3;Ik heb overzicht over mijn financi�le situatie en het lukt mij om rond te komen;true
+4;4;Ik weet wat mijn mogelijkheden zijn ondanks mijn verslavingsproblematiek;true
+5;5;Ik ben onder behandeling voor mijn verslavingsproblematiek;true
+6;6;Ik heb hulp gevraagd voor mijn verslavingsproblematiek;true
+7;7;Ik heb hulp gevraagd voor mijn psychische klachten;true
+8;8;Ik ben onder behandeling voor mijn lichamelijke klachten;true
+9;9;Ik heb hulp gevraagd voor mijn lichamelijke klachten;true
+10;10;Ik heb een beoordeling arbeidsvermogen aangevraagd bij UWV;true
+11;11;Ik heb hulp bij het regelen van mijn financi�n;true
+12;12;Ik heb geen financi�le belemmeringen om aan het werk te gaan;true
+13;13;Ik weet hoe ik mijn zorgtaken kan combineren met een baan opleiding of andere activiteit;true
+14;14;Ik ben onder behandeling voor mijn psychische klachten;true
+15;15;Uitkering door voorliggende voorziening;true
+16;16;Ik heb mijn penitentiair programma succesvol afgerond (NIET GEBRUIKEN);FALSE
+17;17;Ik ben gestart met een zinvolle dagbesteding;true
+18;18;Ik ben gestart met vrijwilligerswerk;true
+19;19;Ik beheers de Nederlandse taal voldoende om aan het werk te gaan een opleiding te volgen of te ondernemen;true
+20;20;Ik heb een werkritme;true
+21;21;Ik weet wat er van mij verwacht wordt als werknemer;true
+22;22;Ik ben gestart met een opleiding;true
+23;23;Ik weet welke opleiding past bij mijn mogelijkheden;true
+24;24;Ik volg een opleiding naast mijn partime betaalde baan;true
+25;25;Ik ben gestart met een BBL opleiding (werken en leren);true
+26;26;Ik weet welke opleiding past bij mijn mogelijkheden;true
+27;27;Ik heb urenuitbreiding gekregen;true
+28;28;Ik ben gestart met werken en behoud mijn werk succesvol;true
+29;29;Ik heb werk gevonden waarmee ik uit de bijstand ga;true
+30;30;Ik heb mijn sollicitatievaardigheden ontwikkeld;true
+31;31;Ik weet welk werk bij mij past;true
+32;32;Ik heb een netwerk waarmee ik sociale contacten heb;true
+33;33;Ik krijg betaald voor mijn werkzaamheden als mantelzorger (vanuit PGB);true
+34;34;Ik weet of ik (vanuit PGB) betaald kan krijgen voor mijn werkzaamheden als mantelzorger;true
+35;35;Ik kan mijn zorgtaken (mantelzorg) overdragen aan anderen;true
+36;36;Ik heb kinderopvang voor mijn kinderen;true
+37;37;Ik heb voldoende digitale vaardigheden om een stap te zetten richting de arbeidsmarkt;true
+38;38;Ik kan omgaan met computer smartphone en tablet kan zelfstandig mailen en zoeken op internet;true
+39;39;Ik beheers de Nederlandse taal op het voor mij hoogst haalbare niveau;true
+40;40;Ik beheers de Nederlandse taal voldoende om een volgende stap te kunnen zetten;true
+41;41;Ik weet wat mijn Nederlandse taalniveau is;true
+42;42;Ik ben gestart met de hulp voor mijn schulden;true
+43;43;Ik heb mijn penitentiair programma succesvol afgerond;true
+44;44;Ik weet wat mijn mogelijkheden zijn met mijn justitiele verleden;true
+45;45;Ik heb een beoordeling arbeidsvermogen aangevraagd bij het UWV;true
+46;46;Ik weet wat mijn mogelijkheden zijn ondanks de psychische klachten;true
+47;47;Ik weet wat mijn mogelijkheden zijn ondanks mijn lichamelijke klachten;true
