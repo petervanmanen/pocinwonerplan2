@@ -159,11 +159,8 @@ describe('Aanbod e2e test', () => {
     });
 
     it('should create an instance of Aanbod', () => {
-      cy.get(`[data-cy="naam"]`).type('chargesheet');
-      cy.get(`[data-cy="naam"]`).should('have.value', 'chargesheet');
-
-      cy.get(`[data-cy="subdoelen"]`).type('really mysterious preset');
-      cy.get(`[data-cy="subdoelen"]`).should('have.value', 'really mysterious preset');
+      cy.get(`[data-cy="naam"]`).type('yearningly cruise warm');
+      cy.get(`[data-cy="naam"]`).should('have.value', 'yearningly cruise warm');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

@@ -17,17 +17,14 @@
             <column name="naam" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="subdoelen" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
 
     <changeSet id="20240430132252-1-relations" author="jhipster">
 
-        <createTable tableName="rel_aanbod__subdoel">
-            <column name="subdoel_id" type="bigint">
+        <createTable tableName="rel_aanbod__activiteit">
+            <column name="activiteit_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="aanbod_id" type="bigint">
@@ -35,7 +32,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="aanbod_id, subdoel_id" tableName="rel_aanbod__subdoel"/>
+        <addPrimaryKey columnNames="aanbod_id, activiteit_id" tableName="rel_aanbod__activiteit"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -56,7 +53,6 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="naam" type="string"/>
-            <column name="subdoelen" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

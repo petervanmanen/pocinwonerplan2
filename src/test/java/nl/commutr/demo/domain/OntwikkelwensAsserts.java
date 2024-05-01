@@ -59,5 +59,9 @@ public class OntwikkelwensAsserts {
      * @param expected the expected entity
      * @param actual the actual entity
      */
-    public static void assertOntwikkelwensUpdatableRelationshipsEquals(Ontwikkelwens expected, Ontwikkelwens actual) {}
+    public static void assertOntwikkelwensUpdatableRelationshipsEquals(Ontwikkelwens expected, Ontwikkelwens actual) {
+        assertThat(expected)
+            .as("Verify Ontwikkelwens relationships")
+            .satisfies(e -> assertThat(e.getAanbods()).as("check aanbods").isEqualTo(actual.getAanbods()));
+    }
 }

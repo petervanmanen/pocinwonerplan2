@@ -1,8 +1,9 @@
 package nl.commutr.demo.domain;
 
 import static nl.commutr.demo.domain.AanbodTestSamples.*;
+import static nl.commutr.demo.domain.AandachtspuntTestSamples.*;
 import static nl.commutr.demo.domain.ActiviteitTestSamples.*;
-import static nl.commutr.demo.domain.SubdoelTestSamples.*;
+import static nl.commutr.demo.domain.OntwikkelwensTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
@@ -27,42 +28,64 @@ class AanbodTest {
     }
 
     @Test
-    void subdoelTest() throws Exception {
-        Aanbod aanbod = getAanbodRandomSampleGenerator();
-        Subdoel subdoelBack = getSubdoelRandomSampleGenerator();
-
-        aanbod.addSubdoel(subdoelBack);
-        assertThat(aanbod.getSubdoels()).containsOnly(subdoelBack);
-
-        aanbod.removeSubdoel(subdoelBack);
-        assertThat(aanbod.getSubdoels()).doesNotContain(subdoelBack);
-
-        aanbod.subdoels(new HashSet<>(Set.of(subdoelBack)));
-        assertThat(aanbod.getSubdoels()).containsOnly(subdoelBack);
-
-        aanbod.setSubdoels(new HashSet<>());
-        assertThat(aanbod.getSubdoels()).doesNotContain(subdoelBack);
-    }
-
-    @Test
     void activiteitTest() throws Exception {
         Aanbod aanbod = getAanbodRandomSampleGenerator();
         Activiteit activiteitBack = getActiviteitRandomSampleGenerator();
 
         aanbod.addActiviteit(activiteitBack);
         assertThat(aanbod.getActiviteits()).containsOnly(activiteitBack);
-        assertThat(activiteitBack.getAanbods()).containsOnly(aanbod);
 
         aanbod.removeActiviteit(activiteitBack);
         assertThat(aanbod.getActiviteits()).doesNotContain(activiteitBack);
-        assertThat(activiteitBack.getAanbods()).doesNotContain(aanbod);
 
         aanbod.activiteits(new HashSet<>(Set.of(activiteitBack)));
         assertThat(aanbod.getActiviteits()).containsOnly(activiteitBack);
-        assertThat(activiteitBack.getAanbods()).containsOnly(aanbod);
 
         aanbod.setActiviteits(new HashSet<>());
         assertThat(aanbod.getActiviteits()).doesNotContain(activiteitBack);
-        assertThat(activiteitBack.getAanbods()).doesNotContain(aanbod);
+    }
+
+    @Test
+    void aandachtspuntTest() throws Exception {
+        Aanbod aanbod = getAanbodRandomSampleGenerator();
+        Aandachtspunt aandachtspuntBack = getAandachtspuntRandomSampleGenerator();
+
+        aanbod.addAandachtspunt(aandachtspuntBack);
+        assertThat(aanbod.getAandachtspunts()).containsOnly(aandachtspuntBack);
+        assertThat(aandachtspuntBack.getAanbods()).containsOnly(aanbod);
+
+        aanbod.removeAandachtspunt(aandachtspuntBack);
+        assertThat(aanbod.getAandachtspunts()).doesNotContain(aandachtspuntBack);
+        assertThat(aandachtspuntBack.getAanbods()).doesNotContain(aanbod);
+
+        aanbod.aandachtspunts(new HashSet<>(Set.of(aandachtspuntBack)));
+        assertThat(aanbod.getAandachtspunts()).containsOnly(aandachtspuntBack);
+        assertThat(aandachtspuntBack.getAanbods()).containsOnly(aanbod);
+
+        aanbod.setAandachtspunts(new HashSet<>());
+        assertThat(aanbod.getAandachtspunts()).doesNotContain(aandachtspuntBack);
+        assertThat(aandachtspuntBack.getAanbods()).doesNotContain(aanbod);
+    }
+
+    @Test
+    void ontwikkelwensTest() throws Exception {
+        Aanbod aanbod = getAanbodRandomSampleGenerator();
+        Ontwikkelwens ontwikkelwensBack = getOntwikkelwensRandomSampleGenerator();
+
+        aanbod.addOntwikkelwens(ontwikkelwensBack);
+        assertThat(aanbod.getOntwikkelwens()).containsOnly(ontwikkelwensBack);
+        assertThat(ontwikkelwensBack.getAanbods()).containsOnly(aanbod);
+
+        aanbod.removeOntwikkelwens(ontwikkelwensBack);
+        assertThat(aanbod.getOntwikkelwens()).doesNotContain(ontwikkelwensBack);
+        assertThat(ontwikkelwensBack.getAanbods()).doesNotContain(aanbod);
+
+        aanbod.ontwikkelwens(new HashSet<>(Set.of(ontwikkelwensBack)));
+        assertThat(aanbod.getOntwikkelwens()).containsOnly(ontwikkelwensBack);
+        assertThat(ontwikkelwensBack.getAanbods()).containsOnly(aanbod);
+
+        aanbod.setOntwikkelwens(new HashSet<>());
+        assertThat(aanbod.getOntwikkelwens()).doesNotContain(ontwikkelwensBack);
+        assertThat(ontwikkelwensBack.getAanbods()).doesNotContain(aanbod);
     }
 }

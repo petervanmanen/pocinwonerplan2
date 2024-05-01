@@ -1,5 +1,6 @@
 package nl.commutr.demo.domain;
 
+import static nl.commutr.demo.domain.AanbodTestSamples.*;
 import static nl.commutr.demo.domain.AandachtspuntTestSamples.*;
 import static nl.commutr.demo.domain.SubdoelTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +46,23 @@ class AandachtspuntTest {
         aandachtspunt.setSubdoels(new HashSet<>());
         assertThat(aandachtspunt.getSubdoels()).doesNotContain(subdoelBack);
         assertThat(subdoelBack.getAandachtspunt()).isNull();
+    }
+
+    @Test
+    void aanbodTest() throws Exception {
+        Aandachtspunt aandachtspunt = getAandachtspuntRandomSampleGenerator();
+        Aanbod aanbodBack = getAanbodRandomSampleGenerator();
+
+        aandachtspunt.addAanbod(aanbodBack);
+        assertThat(aandachtspunt.getAanbods()).containsOnly(aanbodBack);
+
+        aandachtspunt.removeAanbod(aanbodBack);
+        assertThat(aandachtspunt.getAanbods()).doesNotContain(aanbodBack);
+
+        aandachtspunt.aanbods(new HashSet<>(Set.of(aanbodBack)));
+        assertThat(aandachtspunt.getAanbods()).containsOnly(aanbodBack);
+
+        aandachtspunt.setAanbods(new HashSet<>());
+        assertThat(aandachtspunt.getAanbods()).doesNotContain(aanbodBack);
     }
 }

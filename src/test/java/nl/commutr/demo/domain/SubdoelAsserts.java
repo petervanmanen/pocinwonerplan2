@@ -62,7 +62,6 @@ public class SubdoelAsserts {
         assertThat(expected)
             .as("Verify Subdoel relationships")
             .satisfies(e -> assertThat(e.getAandachtspunt()).as("check aandachtspunt").isEqualTo(actual.getAandachtspunt()))
-            .satisfies(e -> assertThat(e.getOntwikkelwens()).as("check ontwikkelwens").isEqualTo(actual.getOntwikkelwens()))
-            .satisfies(e -> assertThat(e.getAanbods()).as("check aanbods").isEqualTo(actual.getAanbods()));
+            .satisfies(e -> assertThat(e.getOntwikkelwens()).as("check ontwikkelwens").isEqualTo(actual.getOntwikkelwens()));
     }
 }

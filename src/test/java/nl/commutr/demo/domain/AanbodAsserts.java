@@ -47,8 +47,7 @@ public class AanbodAsserts {
     public static void assertAanbodUpdatableFieldsEquals(Aanbod expected, Aanbod actual) {
         assertThat(expected)
             .as("Verify Aanbod relevant properties")
-            .satisfies(e -> assertThat(e.getNaam()).as("check naam").isEqualTo(actual.getNaam()))
-            .satisfies(e -> assertThat(e.getSubdoelen()).as("check subdoelen").isEqualTo(actual.getSubdoelen()));
+            .satisfies(e -> assertThat(e.getNaam()).as("check naam").isEqualTo(actual.getNaam()));
     }
 
     /**
@@ -60,7 +59,8 @@ public class AanbodAsserts {
     public static void assertAanbodUpdatableRelationshipsEquals(Aanbod expected, Aanbod actual) {
         assertThat(expected)
             .as("Verify Aanbod relationships")
-            .satisfies(e -> assertThat(e.getSubdoels()).as("check subdoels").isEqualTo(actual.getSubdoels()))
-            .satisfies(e -> assertThat(e.getActiviteits()).as("check activiteits").isEqualTo(actual.getActiviteits()));
+            .satisfies(e -> assertThat(e.getActiviteits()).as("check activiteits").isEqualTo(actual.getActiviteits()))
+            .satisfies(e -> assertThat(e.getAandachtspunts()).as("check aandachtspunts").isEqualTo(actual.getAandachtspunts()))
+            .satisfies(e -> assertThat(e.getOntwikkelwens()).as("check ontwikkelwens").isEqualTo(actual.getOntwikkelwens()));
     }
 }

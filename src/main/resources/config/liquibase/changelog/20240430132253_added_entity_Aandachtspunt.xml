@@ -30,6 +30,20 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="20240430132253-1-relations" author="jhipster">
+
+        <createTable tableName="rel_aandachtspunt__aanbod">
+            <column name="aanbod_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="aandachtspunt_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="aandachtspunt_id, aanbod_id" tableName="rel_aandachtspunt__aanbod"/>
+    </changeSet>
+
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--

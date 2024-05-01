@@ -6,22 +6,22 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <!--
-        Added the constraints for entity Aanbod.
+        Added the constraints for entity Aandachtspunt.
     -->
-    <changeSet id="20240430132252-2" author="jhipster">
+    <changeSet id="20240430132253-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="aanbod_id"
-                                 baseTableName="rel_aanbod__activiteit"
-                                 constraintName="fk_rel_aanbod__activiteit__aanbod_id"
+        <addForeignKeyConstraint baseColumnNames="aandachtspunt_id"
+                                 baseTableName="rel_aandachtspunt__aanbod"
+                                 constraintName="fk_rel_aandachtspunt__aanbod__aandachtspunt_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="aanbod"
+                                 referencedTableName="aandachtspunt"
                                  />
 
-        <addForeignKeyConstraint baseColumnNames="activiteit_id"
-                                 baseTableName="rel_aanbod__activiteit"
-                                 constraintName="fk_rel_aanbod__activiteit__activiteit_id"
+        <addForeignKeyConstraint baseColumnNames="aanbod_id"
+                                 baseTableName="rel_aandachtspunt__aanbod"
+                                 constraintName="fk_rel_aandachtspunt__aanbod__aanbod_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="activiteit"
+                                 referencedTableName="aanbod"
                                  />
     </changeSet>
 </databaseChangeLog>

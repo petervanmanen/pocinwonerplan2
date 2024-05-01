@@ -32,14 +32,18 @@ class ActiviteitTest {
 
         activiteit.addAanbod(aanbodBack);
         assertThat(activiteit.getAanbods()).containsOnly(aanbodBack);
+        assertThat(aanbodBack.getActiviteits()).containsOnly(activiteit);
 
         activiteit.removeAanbod(aanbodBack);
         assertThat(activiteit.getAanbods()).doesNotContain(aanbodBack);
+        assertThat(aanbodBack.getActiviteits()).doesNotContain(activiteit);
 
         activiteit.aanbods(new HashSet<>(Set.of(aanbodBack)));
         assertThat(activiteit.getAanbods()).containsOnly(aanbodBack);
+        assertThat(aanbodBack.getActiviteits()).containsOnly(activiteit);
 
         activiteit.setAanbods(new HashSet<>());
         assertThat(activiteit.getAanbods()).doesNotContain(aanbodBack);
+        assertThat(aanbodBack.getActiviteits()).doesNotContain(activiteit);
     }
 }

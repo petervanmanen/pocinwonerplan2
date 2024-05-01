@@ -42,9 +42,6 @@ class AanbodResourceIT {
     private static final String DEFAULT_NAAM = "AAAAAAAAAA";
     private static final String UPDATED_NAAM = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SUBDOELEN = "AAAAAAAAAA";
-    private static final String UPDATED_SUBDOELEN = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/aanbods";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -75,7 +72,7 @@ class AanbodResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Aanbod createEntity(EntityManager em) {
-        Aanbod aanbod = new Aanbod().naam(DEFAULT_NAAM).subdoelen(DEFAULT_SUBDOELEN);
+        Aanbod aanbod = new Aanbod().naam(DEFAULT_NAAM);
         return aanbod;
     }
 
@@ -86,7 +83,7 @@ class AanbodResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Aanbod createUpdatedEntity(EntityManager em) {
-        Aanbod aanbod = new Aanbod().naam(UPDATED_NAAM).subdoelen(UPDATED_SUBDOELEN);
+        Aanbod aanbod = new Aanbod().naam(UPDATED_NAAM);
         return aanbod;
     }
 
@@ -144,8 +141,7 @@ class AanbodResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(aanbod.getId().intValue())))
-            .andExpect(jsonPath("$.[*].naam").value(hasItem(DEFAULT_NAAM)))
-            .andExpect(jsonPath("$.[*].subdoelen").value(hasItem(DEFAULT_SUBDOELEN)));
+            .andExpect(jsonPath("$.[*].naam").value(hasItem(DEFAULT_NAAM)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -177,8 +173,7 @@ class AanbodResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(aanbod.getId().intValue()))
-            .andExpect(jsonPath("$.naam").value(DEFAULT_NAAM))
-            .andExpect(jsonPath("$.subdoelen").value(DEFAULT_SUBDOELEN));
+            .andExpect(jsonPath("$.naam").value(DEFAULT_NAAM));
     }
 
     @Test
@@ -200,7 +195,7 @@ class AanbodResourceIT {
         Aanbod updatedAanbod = aanbodRepository.findById(aanbod.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedAanbod are not directly saved in db
         em.detach(updatedAanbod);
-        updatedAanbod.naam(UPDATED_NAAM).subdoelen(UPDATED_SUBDOELEN);
+        updatedAanbod.naam(UPDATED_NAAM);
 
         restAanbodMockMvc
             .perform(
@@ -304,7 +299,7 @@ class AanbodResourceIT {
         Aanbod partialUpdatedAanbod = new Aanbod();
         partialUpdatedAanbod.setId(aanbod.getId());
 
-        partialUpdatedAanbod.naam(UPDATED_NAAM).subdoelen(UPDATED_SUBDOELEN);
+        partialUpdatedAanbod.naam(UPDATED_NAAM);
 
         restAanbodMockMvc
             .perform(
