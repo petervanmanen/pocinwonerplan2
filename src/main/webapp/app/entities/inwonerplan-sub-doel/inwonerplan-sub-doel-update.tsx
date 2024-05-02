@@ -8,16 +8,16 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IActiviteit } from 'app/shared/model/activiteit.model';
-import { getEntities as getActiviteits } from 'app/entities/activiteit/activiteit.reducer';
 import { IAandachtspunt } from 'app/shared/model/aandachtspunt.model';
 import { getEntities as getAandachtspunts } from 'app/entities/aandachtspunt/aandachtspunt.reducer';
 import { IOntwikkelwens } from 'app/shared/model/ontwikkelwens.model';
 import { getEntities as getOntwikkelwens } from 'app/entities/ontwikkelwens/ontwikkelwens.reducer';
-import { IAanbod } from 'app/shared/model/aanbod.model';
-import { getEntity, updateEntity, createEntity, reset } from './aanbod.reducer';
+import { IInwonerplan } from 'app/shared/model/inwonerplan.model';
+import { getEntities as getInwonerplans } from 'app/entities/inwonerplan/inwonerplan.reducer';
+import { IInwonerplanSubDoel } from 'app/shared/model/inwonerplan-sub-doel.model';
+import { getEntity, updateEntity, createEntity, reset } from './inwonerplan-sub-doel.reducer';
 
-export const AanbodUpdate = () => {
+export const InwonerplanSubDoelUpdate = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -25,16 +25,16 @@ export const AanbodUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const activiteits = useAppSelector(state => state.activiteit.entities);
   const aandachtspunts = useAppSelector(state => state.aandachtspunt.entities);
   const ontwikkelwens = useAppSelector(state => state.ontwikkelwens.entities);
-  const aanbodEntity = useAppSelector(state => state.aanbod.entity);
-  const loading = useAppSelector(state => state.aanbod.loading);
-  const updating = useAppSelector(state => state.aanbod.updating);
-  const updateSuccess = useAppSelector(state => state.aanbod.updateSuccess);
+  const inwonerplans = useAppSelector(state => state.inwonerplan.entities);
+  const inwonerplanSubDoelEntity = useAppSelector(state => state.inwonerplanSubDoel.entity);
+  const loading = useAppSelector(state => state.inwonerplanSubDoel.loading);
+  const updating = useAppSelector(state => state.inwonerplanSubDoel.updating);
+  const updateSuccess = useAppSelector(state => state.inwonerplanSubDoel.updateSuccess);
 
   const handleClose = () => {
-    navigate('/aanbod');
+    navigate('/inwonerplan-sub-doel');
   };
 
   useEffect(() => {
@@ -44,9 +44,9 @@ export const AanbodUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getActiviteits({}));
     dispatch(getAandachtspunts({}));
     dispatch(getOntwikkelwens({}));
+    dispatch(getInwonerplans({}));
   }, []);
 
   useEffect(() => {
@@ -60,13 +60,16 @@ export const AanbodUpdate = () => {
     if (values.id !== undefined && typeof values.id !== 'number') {
       values.id = Number(values.id);
     }
+    if (values.code !== undefined && typeof values.code !== 'number') {
+      values.code = Number(values.code);
+    }
 
     const entity = {
-      ...aanbodEntity,
+      ...inwonerplanSubDoelEntity,
       ...values,
-      activiteits: mapIdList(values.activiteits),
-      aandachtspunts: mapIdList(values.aandachtspunts),
-      ontwikkelwens: mapIdList(values.ontwikkelwens),
+      aandachtspunt: aandachtspunts.find(it => it.id.toString() === values.aandachtspunt?.toString()),
+      ontwikkelwens: ontwikkelwens.find(it => it.id.toString() === values.ontwikkelwens?.toString()),
+      inwonerplan: inwonerplans.find(it => it.id.toString() === values.inwonerplan?.toString()),
     };
 
     if (isNew) {
@@ -80,18 +83,18 @@ export const AanbodUpdate = () => {
     isNew
       ? {}
       : {
-          ...aanbodEntity,
-          activiteits: aanbodEntity?.activiteits?.map(e => e.id.toString()),
-          aandachtspunts: aanbodEntity?.aandachtspunts?.map(e => e.id.toString()),
-          ontwikkelwens: aanbodEntity?.ontwikkelwens?.map(e => e.id.toString()),
+          ...inwonerplanSubDoelEntity,
+          aandachtspunt: inwonerplanSubDoelEntity?.aandachtspunt?.id,
+          ontwikkelwens: inwonerplanSubDoelEntity?.ontwikkelwens?.id,
+          inwonerplan: inwonerplanSubDoelEntity?.inwonerplan?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="demo2App.aanbod.home.createOrEditLabel" data-cy="AanbodCreateUpdateHeading">
-            Create or edit a Aanbod
+          <h2 id="demo2App.inwonerplanSubDoel.home.createOrEditLabel" data-cy="InwonerplanSubDoelCreateUpdateHeading">
+            Create or edit a Inwonerplan Sub Doel
           </h2>
         </Col>
       </Row>
@@ -101,25 +104,18 @@ export const AanbodUpdate = () => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? <ValidatedField name="id" required readOnly id="aanbod-id" label="ID" validate={{ required: true }} /> : null}
-              <ValidatedField label="Naam" id="aanbod-naam" name="naam" data-cy="naam" type="text" />
-              <ValidatedField label="Activiteit" id="aanbod-activiteit" data-cy="activiteit" type="select" multiple name="activiteits">
-                <option value="" key="0" />
-                {activiteits
-                  ? activiteits.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+              {!isNew ? (
+                <ValidatedField name="id" required readOnly id="inwonerplan-sub-doel-id" label="ID" validate={{ required: true }} />
+              ) : null}
+              <ValidatedField label="Code" id="inwonerplan-sub-doel-code" name="code" data-cy="code" type="text" />
+              <ValidatedField label="Naam" id="inwonerplan-sub-doel-naam" name="naam" data-cy="naam" type="text" />
+              <ValidatedField label="Actief" id="inwonerplan-sub-doel-actief" name="actief" data-cy="actief" check type="checkbox" />
               <ValidatedField
-                label="Aandachtspunt"
-                id="aanbod-aandachtspunt"
+                id="inwonerplan-sub-doel-aandachtspunt"
+                name="aandachtspunt"
                 data-cy="aandachtspunt"
+                label="Aandachtspunt"
                 type="select"
-                multiple
-                name="aandachtspunts"
               >
                 <option value="" key="0" />
                 {aandachtspunts
@@ -131,12 +127,11 @@ export const AanbodUpdate = () => {
                   : null}
               </ValidatedField>
               <ValidatedField
-                label="Ontwikkelwens"
-                id="aanbod-ontwikkelwens"
-                data-cy="ontwikkelwens"
-                type="select"
-                multiple
+                id="inwonerplan-sub-doel-ontwikkelwens"
                 name="ontwikkelwens"
+                data-cy="ontwikkelwens"
+                label="Ontwikkelwens"
+                type="select"
               >
                 <option value="" key="0" />
                 {ontwikkelwens
@@ -147,7 +142,23 @@ export const AanbodUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/aanbod" replace color="info">
+              <ValidatedField
+                id="inwonerplan-sub-doel-inwonerplan"
+                name="inwonerplan"
+                data-cy="inwonerplan"
+                label="Inwonerplan"
+                type="select"
+              >
+                <option value="" key="0" />
+                {inwonerplans
+                  ? inwonerplans.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/inwonerplan-sub-doel" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">Back</span>
@@ -165,4 +176,4 @@ export const AanbodUpdate = () => {
   );
 };
 
-export default AanbodUpdate;
+export default InwonerplanSubDoelUpdate;

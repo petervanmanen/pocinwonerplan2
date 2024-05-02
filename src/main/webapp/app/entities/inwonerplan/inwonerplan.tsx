@@ -8,9 +8,9 @@ import { ASC, DESC, SORT } from 'app/shared/util/pagination.constants';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities } from './aanbod.reducer';
+import { getEntities } from './inwonerplan.reducer';
 
-export const Aanbod = () => {
+export const Inwonerplan = () => {
   const dispatch = useAppDispatch();
 
   const pageLocation = useLocation();
@@ -18,8 +18,8 @@ export const Aanbod = () => {
 
   const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
 
-  const aanbodList = useAppSelector(state => state.aanbod.entities);
-  const loading = useAppSelector(state => state.aanbod.loading);
+  const inwonerplanList = useAppSelector(state => state.inwonerplan.entities);
+  const loading = useAppSelector(state => state.inwonerplan.loading);
 
   const getAllEntities = () => {
     dispatch(
@@ -65,90 +65,47 @@ export const Aanbod = () => {
 
   return (
     <div>
-      <h2 id="aanbod-heading" data-cy="AanbodHeading">
-        Aanbods
+      <h2 id="inwonerplan-heading" data-cy="InwonerplanHeading">
+        Inwonerplannen
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
           </Button>
-          <Link to="/aanbod/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Link to="/inwonerplan/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Aanbod
+            &nbsp; Create a new Inwonerplan
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
-        {aanbodList && aanbodList.length > 0 ? (
+        {inwonerplanList && inwonerplanList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
                   ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
-                <th className="hand" onClick={sort('naam')}>
-                  Naam <FontAwesomeIcon icon={getSortIconByFieldName('naam')} />
-                </th>
-                <th>
-                  Activiteit <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  Aandachtspunt <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  Ontwikkelwens <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {aanbodList.map((aanbod, i) => (
+              {inwonerplanList.map((inwonerplan, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`/aanbod/${aanbod.id}`} color="link" size="sm">
-                      {aanbod.id}
+                    <Button tag={Link} to={`/inwonerplan/${inwonerplan.id}`} color="link" size="sm">
+                      {inwonerplan.id}
                     </Button>
-                  </td>
-                  <td>{aanbod.naam}</td>
-                  <td>
-                    {aanbod.activiteits
-                      ? aanbod.activiteits.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/activiteit/${val.id}`}>{val.id}</Link>
-                            {j === aanbod.activiteits.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
-                  </td>
-                  <td>
-                    {aanbod.aandachtspunts
-                      ? aanbod.aandachtspunts.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/aandachtspunt/${val.id}`}>{val.id}</Link>
-                            {j === aanbod.aandachtspunts.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
-                  </td>
-                  <td>
-                    {aanbod.ontwikkelwens
-                      ? aanbod.ontwikkelwens.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/ontwikkelwens/${val.id}`}>{val.id}</Link>
-                            {j === aanbod.ontwikkelwens.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/aanbod/${aanbod.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <Button tag={Link} to={`/inwonerplan/${inwonerplan.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                       </Button>
-                      <Button tag={Link} to={`/aanbod/${aanbod.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                      <Button tag={Link} to={`/inwonerplan/${inwonerplan.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                       </Button>
                       <Button
-                        onClick={() => (window.location.href = `/aanbod/${aanbod.id}/delete`)}
+                        onClick={() => (window.location.href = `/inwonerplan/${inwonerplan.id}/delete`)}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -162,11 +119,11 @@ export const Aanbod = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Aanbods found</div>
+          !loading && <div className="alert alert-warning">No Inwonerplans found</div>
         )}
       </div>
     </div>
   );
 };
 
-export default Aanbod;
+export default Inwonerplan;
