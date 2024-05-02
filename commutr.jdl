@@ -1,0 +1,76 @@
+entity Subdoel{
+    code Integer
+    naam String
+    actief Boolean
+}
+entity Aanbod {
+    naam String
+}
+entity Aandachtspunt{
+    code Integer
+    naam String
+    omschrijving String
+    actief Boolean
+}
+entity Ontwikkelwens{
+    code Integer
+    naam String
+    omschrijving String
+    actief Boolean
+}
+entity Activiteit{
+    code Integer
+    naam String
+    actiehouder String
+    afhandeltermijn Integer
+    actief Boolean
+}
+relationship OneToMany{
+    Aandachtspunt to Subdoel
+    Ontwikkelwens to Subdoel
+}
+relationship ManyToMany{
+    Aandachtspunt to Aanbod
+    Ontwikkelwens to Aanbod
+    Aanbod to Activiteit
+}
+
+entity Inwonerplan{
+
+}
+entity Inwonerprofiel{
+    voornaam String required
+    tussenvoegsel String required
+    achternaam String required
+    geboortedatum LocalDate required
+    bsn String pattern(/\b[0-9]{9}\b/)
+}
+entity InwonerplanSubDoel{
+    code Integer
+    naam String
+    actief Boolean
+}
+entity InwonerplanActiviteit{
+    actiehouder String
+    begindatum LocalDate
+    einddatum LocalDate
+    naam String
+    status ActiviteitStatus
+}
+enum ActiviteitStatus{
+    OPEN
+    AFGEROND
+}
+relationship OneToMany{
+    Inwonerplan to Inwonerprofiel
+}
+relationship OneToMany{
+    Inwonerplan{Subdoel} to InwonerplanSubDoel
+}
+relationship ManyToOne{
+    InwonerplanSubDoel to Aandachtspunt
+    InwonerplanSubDoel to Ontwikkelwens
+    InwonerplanActiviteit to InwonerplanSubDoel
+}
+
+
